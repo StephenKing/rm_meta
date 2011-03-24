@@ -1,0 +1,13 @@
+--- app/views/layouts/base.rhtml.bck	2011-03-24 22:25:52.000000000 +0200
++++ app/views/layouts/base.rhtml	2011-03-25 00:43:46.000000000 +0200
+@@ -3,8 +3,8 @@
+ <head>
+ <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+ <title><%=h html_title %></title>
+-<meta name="description" content="<%= Redmine::Info.app_name %>" />
+-<meta name="keywords" content="issue,bug,tracker" />
++<meta name="description" content="<%= h meta_description %>" />
++<meta name="keywords" content="<%= h meta_keywords %>" />
+ <%= favicon %>
+ <%= stylesheet_link_tag 'application', :media => 'all' %>
+ <%= stylesheet_link_tag 'rtl', :media => 'all' if l(:direction) == 'rtl' %>
