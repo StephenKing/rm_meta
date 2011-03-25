@@ -23,5 +23,6 @@ Redmine::Plugin.register :meta_plugin do
     author 'Andriy Lesyuk'
     author_url 'http://www.facebook.com/andriy.lesyuk'
     description 'Adds an ability to specify meta description and keywords.'
+    url 'http://labs.softjourn.com/projects/redmine-meta'
     version '0.0.1'
 end
