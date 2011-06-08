@@ -18,11 +18,13 @@ Dispatcher.to_prepare :meta_plugin do
     end
 end
 
+# FIXME: maybe rewrite base.rhtml
+
 Redmine::Plugin.register :meta_plugin do
     name 'Meta tags'
     author 'Andriy Lesyuk'
-    author_url 'http://www.facebook.com/andriy.lesyuk'
+    author_url 'http://www.andriylesyuk.com'
     description 'Adds an ability to specify meta description and keywords.'
-    url 'http://labs.softjourn.com/projects/redmine-meta'
-    version '0.0.1'
+    url 'http://projects.andriylesyuk.com/projects/redmine-meta'
+    version '0.0.2'
 end
