@@ -1,6 +1,6 @@
-require_dependency 'news_controller'
+require_dependency 'projects_controller'
 
-module NewsControllerPatch
+module MetaProjectsControllerPatch
     include ApplicationHelper
 
     def self.included(base)
@@ -18,7 +18,7 @@ module NewsControllerPatch
     module InstanceMethods
 
         def set_meta_description
-            meta_description(@news.summary) if @news && @news.summary.present?
+            meta_description(@project.short_description) if @project && @project.description.present?
         end
 
     end

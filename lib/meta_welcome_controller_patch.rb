@@ -1,6 +1,6 @@
-require_dependency 'wiki_controller'
+require_dependency 'welcome_controller'
 
-module WikiControllerPatch
+module MetaWelcomeControllerPatch
     include ApplicationHelper
 
     def self.included(base)
@@ -18,10 +18,7 @@ module WikiControllerPatch
     module InstanceMethods
 
         def set_meta_description
-            @page = @wiki.find_page(params[:page])
-            if @page && @page.content && @page.content.text.present?
-                meta_description(@page.content.text.gsub(/^(.{255}[^\n\r]*).*$/m, '\1...').strip)
-            end
+             meta_description(Setting.welcome_text.gsub(/^(.{255}[^\n\r]*).*$/m, '\1...').strip) if Setting.welcome_text.present?
         end
 
     end

@@ -1,6 +1,6 @@
 require_dependency 'application_helper'
 
-module ApplicationHelperPatch
+module MetaApplicationHelperPatch
 
     def self.included(base)
         base.class_eval do
