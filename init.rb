@@ -19,9 +19,10 @@ Dispatcher.to_prepare :meta_plugin do
     unless WelcomeController.included_modules.include?(MetaWelcomeControllerPatch)
         WelcomeController.send(:include, MetaWelcomeControllerPatch)
     end
+    unless IssuesController.included_modules.include?(MetaIssuesControllerPatch)
+        IssuesController.send(:include, MetaIssuesControllerPatch)
+    end
 end
-
-# FIXME: maybe rewrite base.rhtml
 
 Redmine::Plugin.register :meta_plugin do
     name 'Meta tags'
