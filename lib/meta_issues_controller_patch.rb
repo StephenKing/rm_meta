@@ -2,9 +2,11 @@ require_dependency 'issues_controller'
 
 module MetaIssuesControllerPatch
     include ApplicationHelper
+    include ActionView::Helpers::SanitizeHelper
 
     def self.included(base)
         base.extend(ClassMethods)
+        base.extend(ActionView::Helpers::SanitizeHelper::ClassMethods)
         base.send(:include, InstanceMethods)
         base.class_eval do
             unloadable
@@ -18,7 +20,10 @@ module MetaIssuesControllerPatch
     module InstanceMethods
 
         def set_meta_description
-            meta_description(@issue.description.gsub(/^(.{255}[^\n\r]*).*$/m, '\1...').strip) if @issue.description.present?
+            if @issue.description.present?
+                # TODO: description.scan(%r{})
+                meta_description(strip_tags(textilizable(@issue.description, :project => @issue.project)).gsub(/^(.{255}[^\n\r]*).*$/m, '\1...').strip)
+            end
         end
 
     end

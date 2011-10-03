@@ -2,9 +2,11 @@ require_dependency 'welcome_controller'
 
 module MetaWelcomeControllerPatch
     include ApplicationHelper
+    include ActionView::Helpers::SanitizeHelper
 
     def self.included(base)
         base.extend(ClassMethods)
+        base.extend(ActionView::Helpers::SanitizeHelper::ClassMethods)
         base.send(:include, InstanceMethods)
         base.class_eval do
             unloadable
@@ -18,7 +20,9 @@ module MetaWelcomeControllerPatch
     module InstanceMethods
 
         def set_meta_description
-             meta_description(Setting.welcome_text.gsub(/^(.{255}[^\n\r]*).*$/m, '\1...').strip) if Setting.welcome_text.present?
+            if Setting.welcome_text.present?
+                meta_description(strip_tags(textilizable(Setting.welcome_text)).gsub(/^(.{255}[^\n\r]*).*$/m, '\1...').strip)
+            end
         end
 
     end

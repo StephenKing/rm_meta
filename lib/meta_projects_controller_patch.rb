@@ -2,9 +2,11 @@ require_dependency 'projects_controller'
 
 module MetaProjectsControllerPatch
     include ApplicationHelper
+    include ActionView::Helpers::SanitizeHelper
 
     def self.included(base)
         base.extend(ClassMethods)
+        base.extend(ActionView::Helpers::SanitizeHelper::ClassMethods)
         base.send(:include, InstanceMethods)
         base.class_eval do
             unloadable
@@ -18,7 +20,9 @@ module MetaProjectsControllerPatch
     module InstanceMethods
 
         def set_meta_description
-            meta_description(@project.short_description) if @project && @project.description.present?
+            if @project && @project.description.present?
+                meta_description(strip_tags(textilizable(@project.short_description, :project => @project)))
+            end
         end
 
     end
