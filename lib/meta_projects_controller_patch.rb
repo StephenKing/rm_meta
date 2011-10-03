@@ -1,5 +1,7 @@
 require_dependency 'projects_controller'
 
+# FIXME: view_projects_show_left, view_projects_show_right or view_projects_show_sidebar_bottom
+
 module MetaProjectsControllerPatch
     include ApplicationHelper
     include ActionView::Helpers::SanitizeHelper

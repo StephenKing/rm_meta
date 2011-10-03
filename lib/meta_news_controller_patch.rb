@@ -1,5 +1,7 @@
 require_dependency 'news_controller'
 
+# FIXME: view_layouts_base_content or view_layouts_base_body_bottom
+
 module MetaNewsControllerPatch
     include ApplicationHelper
 

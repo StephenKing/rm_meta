@@ -1,5 +1,7 @@
 require_dependency 'welcome_controller'
 
+# FIXME: view_welcome_index_left or view_welcome_index_right
+
 module MetaWelcomeControllerPatch
     include ApplicationHelper
     include ActionView::Helpers::SanitizeHelper

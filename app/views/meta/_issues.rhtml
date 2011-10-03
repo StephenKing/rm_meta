@@ -1,0 +1,13 @@
+<% if issue.description.present? %>
+  <% description = strip_tags(textilizable(issue.description, :project => issue.project)) %>
+  <% keywords = description.scan(%r{[^\000-\100\133-\140\173-]{4,30}}i).inject({}) do |hash, word| # FIXME: move to helper
+       if hash.has_key?(word)
+         hash[word] += 1
+       else
+         hash[word] = 1
+       end
+       hash
+     end %>
+  <%= keywords.sort{|a,b|b[1]<=>a[1]}.inspect %>
+  <% meta_description(description.gsub(/^(.{255}[^\n\r]*).*$/m, '\1...').strip) %>
+<% end %>

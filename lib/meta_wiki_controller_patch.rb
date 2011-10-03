@@ -1,5 +1,7 @@
 require_dependency 'wiki_controller'
 
+# FIXME: view_layouts_base_content or view_layouts_base_body_bottom
+
 module MetaWikiControllerPatch
     include ApplicationHelper
     #include ActionView::Helpers::SanitizeHelper

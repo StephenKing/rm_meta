@@ -1,5 +1,7 @@
 require_dependency 'issues_controller'
 
+# FIXME: view_issues_show_details_bottom or view_issues_show_description_bottom
+
 module MetaIssuesControllerPatch
     include ApplicationHelper
     include ActionView::Helpers::SanitizeHelper

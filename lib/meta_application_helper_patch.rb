@@ -3,7 +3,7 @@ require_dependency 'application_helper'
 module MetaApplicationHelperPatch
 
     def self.included(base)
-        base.class_eval do
+        base.class_eval do # FIXME: why class_eval?
 
             def meta_description(*args)
                 if args.empty?
