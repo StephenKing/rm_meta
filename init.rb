@@ -30,5 +30,5 @@ Redmine::Plugin.register :meta_plugin do
     author_url 'http://www.andriylesyuk.com'
     description 'Adds an ability to specify meta description and keywords.'
     url 'http://projects.andriylesyuk.com/projects/redmine-meta'
-    version '0.0.2'
+    version '0.1.0'
 end
