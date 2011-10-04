@@ -1,7 +1,6 @@
 module MetaHelper
 
     def meta_description(*args)
-        RAILS_DEFAULT_LOGGER.info " >>> #{args.inspect}" # FIXME
         if args.empty?
             if @meta_description
                 @meta_description
@@ -13,10 +12,12 @@ module MetaHelper
         end
     end
 
-    def meta_keywords(*args) # FIXME: should be a way to clear
+    def meta_keywords(*args)
         if args.empty?
             @meta_keywords = %w(issue bug tracker) if @meta_keywords.blank?
             @meta_keywords.select {|k| !k.blank? }.join(',')
+        elsif args.first.is_a?(Array)
+            @meta_keywords = args.first
         else
             @meta_keywords ||= []
             @meta_keywords += args
