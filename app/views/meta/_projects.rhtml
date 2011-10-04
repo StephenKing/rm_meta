@@ -1,5 +1,5 @@
-<% if issue.description.present? %>
-  <% description = strip_tags(textilizable(issue.description, :project => issue.project)) %>
+<% if project.description.present? %>
+  <% description = strip_tags(textilizable(project.description, :project => project)) %>
   <% meta_description(description.gsub(/^(.{255}[^\n\r]*).*$/m, '\1...').strip) %>
   <% meta_keywords(extract_keywords(description)) %>
 <% end %>
