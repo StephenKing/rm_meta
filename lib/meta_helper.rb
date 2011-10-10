@@ -7,8 +7,8 @@ module MetaHelper
             else
                 Redmine::Info.app_name
             end
-        else
-            @meta_description = args
+        elsif args.first.is_a?(String)
+            @meta_description = args.first.gsub(%r{\n+}, ' ')
         end
     end
 
@@ -25,7 +25,7 @@ module MetaHelper
     end
 
     def extract_keywords(text)
-        text.scan(%r{[^\000-\100\133-\140\173-]{4,30}}i).inject({}) { |hash, word|
+        strip_entities(text).scan(%r{[^\000-\100\133-\140\173-]{4,30}}i).inject({}) { |hash, word|
             keyword = word.downcase
             if hash.has_key?(keyword)
                 hash[keyword] += 1
@@ -34,6 +34,16 @@ module MetaHelper
             end
             hash
         }.sort{ |a, b| b[1] <=> a[1] }.collect{ |item| item[0] }.first(10)
+    end
+
+    def strip_textile(text, project = nil)
+        text.gsub!(%r{\{\{[<>]?toc\}\}}i, '')
+        plain = strip_tags(textilizable(text, :project => project))
+        plain.gsub(%r{&(nbsp|para);}, ' ') # FIXME
+    end
+
+    def strip_entities(text)
+        text.gsub(%r{&#?[a-z0-9]+;}i, '')
     end
 
 end
