@@ -1,11 +1,11 @@
 <div class="contextual">
 <%= watcher_tag(@news, User.current) if defined? watcher_tag %>
-<%= link_to(l(:button_edit), 
+<%= link_to(l(:button_edit),
       edit_news_path(@news),
       :class => 'icon icon-edit',
       :accesskey => accesskey(:edit),
       :onclick => 'Element.show("edit-news"); return false;') if User.current.allowed_to?(:manage_news, @project) %>
-<%= link_to(l(:button_delete), 
+<%= link_to(l(:button_delete),
       news_path(@news),
       :confirm => l(:text_are_you_sure),
       :method => :delete,
@@ -16,11 +16,11 @@
 
 <% if authorize_for('news', 'edit') %>
 <div id="edit-news" style="display:none;">
-<% labelled_tabular_form_for :news, @news, :url => news_path(@news),
-                                           :html => { :id => 'news-form', :method => :put } do |f| %>
+<% labelled_form_for :news, @news, :url => news_path(@news),
+                                           :html => { :id => 'news-form', :multipart => true, :method => :put } do |f| %>
 <%= render :partial => 'form', :locals => { :f => f } %>
 <%= submit_tag l(:button_save) %>
-<%= link_to_remote l(:label_preview), 
+<%= link_to_remote l(:label_preview),
                    { :url => preview_news_path(:project_id => @project),
                      :method => 'get',
                      :update => 'preview',
@@ -35,9 +35,12 @@
 <p><% unless @news.summary.blank? %><em><%=h @news.summary %></em><br /><% end %>
 <span class="author"><%= authoring @news.created_on, @news.author %></span></p>
 <div class="wiki">
-<%= textilizable(@news.description) %>
+<%= textilizable(@news, :description) %>
 </div>
 <%= call_hook(:view_news_show_left, :news => @news) %>
+<% if @news.respond_to?(:attachments) %>
+<%= link_to_attachments @news %>
+<% end %>
 <br />
 
 <div id="comments" style="margin-bottom:16px;">
@@ -53,7 +56,7 @@
 <% end if @comments.any? %>
 </div>
 
-<% if authorize_for 'comments', 'create' %>
+<% if (@news.respond_to?(:commentable?) && @news.commentable?) || (!@news.respond_to?(:commentable?) && authorize_for('comments', 'create')) %>
 <p><%= toggle_link l(:label_comment_add), "add_comment_form", :focus => "comment_comments" %></p>
 <% form_tag({:controller => 'comments', :action => 'create', :id => @news}, :id => "add_comment_form", :style => "display:none;") do %>
 <div class="box">
