@@ -24,6 +24,44 @@ module MetaHelper
         end
     end
 
+    def meta_tag(name, *args)
+        @meta ||= {}
+        if args.empty?
+            @meta.has_key?(name.to_s.downcase) ? @meta[name.to_s.downcase] : nil
+        elsif args.first.blank?
+            @meta.delete(name.to_s.downcase)
+        else
+            @meta[name.to_s.downcase] = args.first.to_s
+        end
+    end
+
+    def meta_tags
+        meta = ''
+        if @meta
+            @meta.each do |name, value|
+                meta << yield(name, value) if block_given?
+            end
+            @meta.clear
+        end
+        meta.html_safe
+    end
+
+    def meta_description?
+        if @meta_description
+            true
+        else
+            false
+        end
+    end
+
+    def meta_keywords?
+        if @meta_keywords
+            true
+        else
+            false
+        end
+    end
+
     def extract_keywords(text)
         strip_entities(text).scan(%r{[^\000-\100\133-\140\173-]{4,30}}i).inject({}) { |hash, word|
             keyword = word.downcase
@@ -39,7 +77,7 @@ module MetaHelper
     def strip_textile(text, project = nil)
         text.gsub!(%r{\{\{[<>]?toc\}\}}i, '')
         plain = strip_tags(textilizable(text, :project => project))
-        plain.gsub(%r{&(nbsp|para);}, ' ') # FIXME
+        plain.gsub(%r{&(nbsp|para);}, ' ')
     end
 
     def strip_entities(text)

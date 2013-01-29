@@ -1,5 +1,5 @@
-<% if page.text.present? %>
+<% if page.text.present? && (!meta_description? || !meta_keywords?) %>
   <% text = strip_textile(page.text, page.project) %>
-  <% meta_description(text.gsub(/^(.{255}[^\n\r]*).*$/m, '\1...').strip) %>
-  <% meta_keywords(extract_keywords(text)) %>
+  <% meta_description(text.gsub(/^(.{255}[^\n\r]*).*$/m, '\1...').strip) unless meta_description? %>
+  <% meta_keywords(extract_keywords(text)) unless meta_keywords? %>
 <% end %>

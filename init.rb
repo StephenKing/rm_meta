@@ -11,6 +11,9 @@ Rails.configuration.to_prepare do
     unless ActionView::Base.included_modules.include?(MetaHelper)
         ActionView::Base.send(:include, MetaHelper)
     end
+    unless ApplicationHelper.included_modules.include?(MetaApplicationHelperPatch)
+        ApplicationHelper.send(:include, MetaApplicationHelperPatch)
+    end
 end
 
 Redmine::Plugin.register :meta do
