@@ -40,6 +40,21 @@ module MetaHelper
         end
     end
 
+    def truncate_description(text, length = 255)
+        text.gsub!(%r{ {2,}}, ' ')
+        text.strip!
+        return text if text.length <= length
+        if text.match(%r{\A(.{#{(length/2).floor},#{length}})\r?\n})
+            return $1.gsub(%r{\s{2,}}, ' ').strip
+        end
+        text.gsub!(%r{\s{2,}}, ' ')
+        return text if text.length <= length
+        if text.match(%r{\A(.{,#{length-4}}\s)})
+            return $1 + '...'
+        end
+        text[0, length]
+    end
+
     def extract_keywords(text)
         strip_entities(text).scan(%r{[^\000-\100\133-\140\173-]{4,30}}i).inject({}) { |hash, word|
             keyword = word.downcase
@@ -60,6 +75,10 @@ module MetaHelper
 
     def strip_entities(text)
         text.gsub(%r{&#?[a-z0-9]+;}i, '')
+    end
+
+    def twitter_username(username)
+        username.start_with?('@') ? username : "@#{username}"
     end
 
 end

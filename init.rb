@@ -14,6 +14,7 @@ Rails.configuration.to_prepare do
 end
 
 # TODO: Open Graph "profile" for users
+# TODO: Find images in text?
 
 Redmine::Plugin.register :meta do
     name 'Meta tags'
