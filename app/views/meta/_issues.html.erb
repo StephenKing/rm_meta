@@ -1,5 +1,6 @@
 <% if issue.description.present? && (!meta_description? || !meta_keywords?) %>
   <% description = strip_textile(issue.description, issue.project) %>
-  <% meta_description(description.gsub(/^(.{255}[^\n\r]*).*$/m, '\1...').strip) unless meta_description? %>
+  <% meta_description(description.gsub(%r{\s+}, ' ').gsub(/^(.{255}[^\n\r]*).*$/m, '\1...').strip) unless meta_description? %>
   <% meta_keywords(extract_keywords(description)) unless meta_keywords? %>
 <% end %>
+<!-- TODO: Open Graph "article" + Twitter Card "summary" -->

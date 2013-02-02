@@ -1,5 +1,20 @@
 <% if Setting.welcome_text.present? && (!meta_description? || !meta_keywords?) %>
   <% welcome_text = strip_textile(Setting.welcome_text) %>
-  <% meta_description(welcome_text.gsub(/^(.{255}[^\n\r]*).*$/m, '\1...').strip) unless meta_description? %>
+  <% meta_description(welcome_text.gsub(%r{\s+}, ' ').gsub(/^(.{255}[^\n\r]*).*$/m, '\1...').strip) unless meta_description? %>
   <% meta_keywords(extract_keywords(welcome_text)) unless meta_keywords? %>
+<% end %>
+
+<% settings = Setting.plugin_meta %>
+
+<% if settings[:open_graph] %>
+  <% content_for(:header_tags) do %>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="<%= h Setting.app_title %>" />
+    <% if meta_description? %>
+      <meta property="og:description" content="<%= h meta_description %>" />
+    <% end %>
+  <% end %>
+<% end %>
+
+<% if settings[:twitter_cards] %>
 <% end %>

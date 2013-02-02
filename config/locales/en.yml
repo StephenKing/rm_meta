@@ -1,0 +1,14 @@
+en:
+  label_facebook: Facebook
+  label_facebook_admins: Administrators
+  label_facebook_app: App identifier
+
+  label_open_graph: Open Graph
+  label_enable_open_graph: Enable
+  label_open_graph_site: Site name
+
+  label_twitter_cards: Twitter Cards
+  label_enable_twitter_cards: Enable
+  label_twitter_site: Site account
+  label_twitter_user_custom_field: User custom field
+  label_twitter_project_custom_field: Project custom field

@@ -1,0 +1,14 @@
+ru:
+  label_facebook: Facebook
+  label_facebook_admins: Администраторы
+  label_facebook_app: Идентификатор приложения
+
+  label_open_graph: Open Graph
+  label_enable_open_graph: Включить
+  label_open_graph_site: Имя сайта
+
+  label_twitter_cards: Twitter Cards
+  label_enable_twitter_cards: Включить
+  label_twitter_site: Эккаунт сайта
+  label_twitter_user_custom_field: Настраиваемое поле пользователей
+  label_twitter_project_custom_field: Настраиваемое поле проектов

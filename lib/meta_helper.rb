@@ -8,7 +8,7 @@ module MetaHelper
                 Redmine::Info.app_name
             end
         elsif args.first.is_a?(String)
-            @meta_description = args.first.gsub(%r{\n+}, ' ')
+            @meta_description = args.first
         end
     end
 
@@ -22,28 +22,6 @@ module MetaHelper
             @meta_keywords ||= []
             @meta_keywords += args
         end
-    end
-
-    def meta_tag(name, *args)
-        @meta ||= {}
-        if args.empty?
-            @meta.has_key?(name.to_s.downcase) ? @meta[name.to_s.downcase] : nil
-        elsif args.first.blank?
-            @meta.delete(name.to_s.downcase)
-        else
-            @meta[name.to_s.downcase] = args.first.to_s
-        end
-    end
-
-    def meta_tags
-        meta = ''
-        if @meta
-            @meta.each do |name, value|
-                meta << yield(name, value) if block_given?
-            end
-            @meta.clear
-        end
-        meta.html_safe
     end
 
     def meta_description?

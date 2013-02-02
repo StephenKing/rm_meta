@@ -1,0 +1,14 @@
+uk:
+  label_facebook: Facebook
+  label_facebook_admins: Адміністратори
+  label_facebook_app: Ідентифікатор додатку
+
+  label_open_graph: Open Graph
+  label_enable_open_graph: Дозволити
+  label_open_graph_site: Назва сайту
+
+  label_twitter_cards: Twitter Cards
+  label_enable_twitter_cards: Дозволити
+  label_twitter_site: Обліковий запис сайту
+  label_twitter_user_custom_field: Поле користувачів
+  label_twitter_project_custom_field: Поле проектів
