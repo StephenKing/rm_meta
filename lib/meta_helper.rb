@@ -40,6 +40,13 @@ module MetaHelper
         end
     end
 
+    def meta_images(&block)
+        @meta_images ||= []
+        @meta_images.each do |image|
+            yield(image) if block_given?
+        end
+    end
+
     def truncate_description(text, length = 255)
         text.gsub!(%r{ {2,}}, ' ')
         text.strip!
@@ -47,6 +54,7 @@ module MetaHelper
         if text.match(%r{\A(.{#{(length/2).floor},#{length}})\r?\n})
             return $1.gsub(%r{\s{2,}}, ' ').strip
         end
+        text.gsub!(%r{(?<![[:punct:]]) *\r?\n\s*}, '. ')
         text.gsub!(%r{\s{2,}}, ' ')
         return text if text.length <= length
         if text.match(%r{\A(.{,#{length-4}}\s)})
@@ -67,9 +75,27 @@ module MetaHelper
         }.sort{ |a, b| b[1] <=> a[1] }.collect{ |item| item[0] }.first(10)
     end
 
-    def strip_textile(text, project = nil)
+    def extract_images(html)
+        images = []
+        html.gsub!(%r{<img [^>]*src="([^"]+)"}i) do |m|
+            images << $1
+        end
+        images
+    end
+
+    def extract_wiki_title(page)
+        if page.text.match(%r{\A\s*h[1-6]\. +(.+?)$})
+            $1
+        else
+            page.title
+        end
+    end
+
+    def strip_textile(text, options = {})
         text.gsub!(%r{\{\{[<>]?toc\}\}}i, '')
-        plain = strip_tags(textilizable(text, :project => project))
+        html = textilizable(text, options.merge(:only_path => false))
+        @meta_images = extract_images(html)
+        plain = strip_tags(html)
         plain.gsub(%r{&(nbsp|para);}, ' ')
     end
 
@@ -79,6 +105,16 @@ module MetaHelper
 
     def twitter_username(username)
         username.start_with?('@') ? username : "@#{username}"
+    end
+
+    def project_twitter(project)
+        settings = Setting.plugin_meta
+        if settings[:twitter_project_custom_field]
+            custom_field_value = project.custom_field_value(settings[:twitter_project_custom_field])
+            return twitter_username(custom_field_value) unless custom_field_value.blank?
+        end
+        return twitter_username(settings[:twitter_site]) unless settings[:twitter_site].empty?
+        nil
     end
 
 end

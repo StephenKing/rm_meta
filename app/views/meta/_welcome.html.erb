@@ -13,6 +13,9 @@
     <% if meta_description? %>
       <meta property="og:description" content="<%= h meta_description %>" />
     <% end %>
+    <% meta_images do |image| %>
+      <meta property="og:image" content="<%= h image %>" />
+    <% end %>
     <meta property="og:url" content="<%= h Setting.protocol %>://<%= h Setting.host_name %>" />
     <% unless settings[:open_graph_site].empty? %>
       <meta property="og:site_name" content="<%= h settings[:open_graph_site] %>" />
@@ -26,6 +29,12 @@
     <meta name="twitter:title" content="<%= h Setting.app_title %>" />
     <% if meta_description? %>
       <meta name="twitter:description" content="<%= h truncate_description(meta_description, 200) %>" />
+    <% end %>
+    <% catch :done do %>
+      <% meta_images do |image| %>
+        <meta name="twitter:image" content="<%= h image %>" />
+        <% throw :done %>
+      <% end %>
     <% end %>
     <meta name="twitter:url" content="<%= h Setting.protocol %>://<%= h Setting.host_name %>" />
     <% unless settings[:twitter_site].empty? %>

@@ -1,5 +1,5 @@
 <% if project.description.present? && (!meta_description? || !meta_keywords?) %>
-  <% description = strip_textile(project.description, project) %>
+  <% description = strip_textile(project.description, :project => project) %>
   <% meta_description(truncate_description(description)) unless meta_description? %>
   <% meta_keywords(extract_keywords(description)) unless meta_keywords? %>
 <% end %>
@@ -12,6 +12,9 @@
     <meta property="og:title" content="<%= h project.name %>" />
     <% if meta_description? %>
       <meta property="og:description" content="<%= h meta_description %>" />
+    <% end %>
+    <% meta_images do |image| %>
+      <meta property="og:image" content="<%= h image %>" />
     <% end %>
     <meta property="og:url" content="<%= h url_for(:controller => 'projects', :action => 'show', :id => project, :only_path => false) %>" />
     <% unless settings[:open_graph_site].empty? %>
@@ -27,16 +30,16 @@
     <% if meta_description? %>
       <meta name="twitter:description" content="<%= h truncate_description(meta_description, 200) %>" />
     <% end %>
+    <% catch :done do %>
+      <% meta_images do |image| %>
+        <meta name="twitter:image" content="<%= h image %>" />
+        <% throw :done %>
+      <% end %>
+    <% end %>
     <meta name="twitter:url" content="<%= h url_for(:controller => 'projects', :action => 'show', :id => project, :only_path => false) %>" />
-    <% if settings[:twitter_project_custom_field] %>
-      <% custom_field_value = project.custom_field_value(settings[:twitter_project_custom_field]) %>
-      <% unless custom_field_value.empty? %>
-        <meta name="twitter:site" content="<%= h twitter_username(custom_field_value) %>" />
-      <% end %>
-    <% else %>
-      <% unless settings[:twitter_site].empty? %>
-        <meta name="twitter:site" content="<%= h twitter_username(settings[:twitter_site]) %>" />
-      <% end %>
+    <% project_twitter = project_twitter(project) %>
+    <% unless project_twitter.blank? %>
+      <meta name="twitter:site" content="<%= h project_twitter %>" />
     <% end %>
   <% end %>
 <% end %>

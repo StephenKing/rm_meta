@@ -1,6 +1,51 @@
 <% if news.summary.present? && news.description.present? && (!meta_description? || !meta_keywords?) %>
-  <% description = strip_textile(news.description, news.project) %>
+  <% description = strip_textile(news.description, :project => news.project) %>
   <% meta_description(news.summary) unless meta_description? %>
   <% meta_keywords(extract_keywords(description)) unless meta_keywords? %>
 <% end %>
-<!-- TODO: Open Graph "article" + Twitter Card "summary" -->
+
+<% settings = Setting.plugin_meta %>
+
+<% if settings[:open_graph] %>
+  <% content_for(:header_tags) do %>
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="<%= h news.project.name %>: <%= h news.title %>" />
+    <% if meta_description? %>
+      <meta property="og:description" content="<%= h meta_description %>" />
+    <% end %>
+    <% meta_images do |image| %>
+      <meta property="og:image" content="<%= h image %>" />
+    <% end %>
+    <meta property="og:url" content="<%= h url_for(:controller => 'news', :action => 'show', :id => news, :only_path => false) %>" />
+    <% unless settings[:open_graph_site].empty? %>
+      <meta property="og:site_name" content="<%= h settings[:open_graph_site] %>" />
+    <% end %>
+  <% end %>
+<% end %>
+
+<% if settings[:twitter_cards] %>
+  <% content_for(:header_tags) do %>
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="<%= h news.project.name %>: <%= h news.title %>" />
+    <% if meta_description? %>
+      <meta name="twitter:description" content="<%= h truncate_description(meta_description, 200) %>" />
+    <% end %>
+    <% catch :done do %>
+      <% meta_images do |image| %>
+        <meta name="twitter:image" content="<%= h image %>" />
+        <% throw :done %>
+      <% end %>
+    <% end %>
+    <meta name="twitter:url" content="<%= h url_for(:controller => 'news', :action => 'show', :id => news, :only_path => false) %>" />
+    <% project_twitter = project_twitter(news.project) %>
+    <% unless project_twitter.blank? %>
+      <meta name="twitter:site" content="<%= h project_twitter %>" />
+    <% end %>
+    <% if settings[:twitter_user_custom_field] %>
+      <% custom_field_value = news.author.custom_field_value(settings[:twitter_user_custom_field]) %>
+      <% unless custom_field_value.blank? %>
+        <meta name="twitter:creator" content="<%= h twitter_username(custom_field_value) %>" />
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>
