@@ -1,0 +1,15 @@
+<% settings = Setting.plugin_meta %>
+
+<% if settings[:open_graph] %>
+  <% content_for(:header_tags) do %>
+    <meta property="og:type" content="profile" />
+    <meta property="og:title" content="<%= h user.name(:firstname_lastname) %>" />
+    <% if Setting.gravatar_enabled? %>
+      <meta property="og:image" content="<%= h gravatar_url(user.mail, :size => 200, :ssl => (defined?(request) && request.ssl?), :default => Setting.gravatar_default) %>" />
+    <% end %>
+    <meta property="og:url" content="<%= h url_for(:controller => 'users', :action => 'show', :id => user, :only_path => false) %>" />
+    <% unless settings[:open_graph_site].empty? %>
+      <meta property="og:site_name" content="<%= h settings[:open_graph_site] %>" />
+    <% end %>
+  <% end %>
+<% end %>

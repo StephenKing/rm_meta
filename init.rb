@@ -13,9 +13,6 @@ Rails.configuration.to_prepare do
     end
 end
 
-# TODO: Open Graph "profile" for users
-# TODO: Version? Open Graph "product", Twitter Card "summary"?
-
 Redmine::Plugin.register :meta do
     name 'Meta tags'
     author 'Andriy Lesyuk'
