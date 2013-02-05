@@ -17,7 +17,7 @@
       <meta property="og:image" content="<%= h image %>" />
     <% end %>
     <meta property="og:url" content="<%= h url_for(:controller => 'wiki', :action => 'show', :id => page.title, :project_id => page.project, :only_path => false) %>" />
-    <% unless settings[:open_graph_site].empty? %>
+    <% unless settings[:open_graph_site].blank? %>
       <meta property="og:site_name" content="<%= h settings[:open_graph_site] %>" />
     <% end %>
   <% end %>

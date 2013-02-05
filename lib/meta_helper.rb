@@ -48,19 +48,22 @@ module MetaHelper
     end
 
     def truncate_description(text, length = 255)
-        text.gsub!(%r{ {2,}}, ' ')
+        text.gsub!(%r{ {2,}}m, ' ')
         text.strip!
-        return text if text.length <= length
-        if text.match(%r{\A(.{#{(length/2).floor},#{length}})\r?\n})
-            return $1.gsub(%r{\s{2,}}, ' ').strip
+        return format_description(text) if text.length <= length
+        if text.match(%r{\A(.{#{(length/2).floor},#{length}})\r?\n}m)
+            return format_description($1)
         end
-        text.gsub!(%r{(?<![[:punct:]]) *\r?\n\s*}, '. ')
-        text.gsub!(%r{\s{2,}}, ' ')
+        text = format_description(text)
         return text if text.length <= length
-        if text.match(%r{\A(.{,#{length-4}}\s)})
+        if text.match(%r{\A(.{,#{length-4}}\s)}m)
             return $1 + '...'
         end
         text[0, length]
+    end
+
+    def format_description(text)
+        text.gsub(%r{([^!,.:;?\s]) *\r?\n\s*}m, '\1. ').gsub(%r{\s{2,}}m, ' ').strip
     end
 
     def extract_keywords(text)
@@ -113,7 +116,7 @@ module MetaHelper
             custom_field_value = project.custom_field_value(settings[:twitter_project_custom_field])
             return twitter_username(custom_field_value) unless custom_field_value.blank?
         end
-        return twitter_username(settings[:twitter_site]) unless settings[:twitter_site].empty?
+        return twitter_username(settings[:twitter_site]) unless settings[:twitter_site].blank?
         nil
     end
 
