@@ -1,13 +1,14 @@
-<!-- TODO -->
 <fieldset>
   <legend><%= l(:label_facebook) %></legend>
   <p>
     <%= label_tag('settings[facebook_admins]', l(:label_facebook_admins)) %>
     <%= text_field_tag('settings[facebook_admins]', @settings[:facebook_admins], :size => 50) %>
+    <em class="info"><%= l(:text_facebook_admins) %></em><!-- FIXME: style for Redmine 1.0.x? -->
   </p>
   <p>
     <%= label_tag('settings[facebook_app]', l(:label_facebook_app)) %>
     <%= text_field_tag('settings[facebook_app]', @settings[:facebook_app], :size => 50) %>
+    <em class="info"><%= l(:text_facebook_app) %></em>
   </p>
 </fieldset>
 
@@ -22,6 +23,7 @@
     <p>
       <%= label_tag('settings[open_graph_site]', l(:label_open_graph_site)) %>
       <%= text_field_tag('settings[open_graph_site]', @settings[:open_graph_site], :size => 30) %>
+      <em class="info"><%= l(:text_open_graph_site) %></em>
     </p>
   </div>
 </fieldset>
@@ -37,12 +39,14 @@
     <p>
       <%= label_tag('settings[twitter_site]', l(:label_twitter_site)) %>
       <%= text_field_tag('settings[twitter_site]', @settings[:twitter_site], :size => 30) %>
+      <em class="info"><%= l(:text_twitter_site) %></em>
     </p>
     <% user_custom_fields = UserCustomField.find(:all, :order => :position) %>
     <% if user_custom_fields.any? %>
       <p>
         <%= label_tag('settings[twitter_user_custom_field]', l(:label_twitter_user_custom_field)) %>
         <%= select_tag('settings[twitter_user_custom_field]', content_tag(:option) + options_from_collection_for_select(user_custom_fields, :id, :name, @settings[:twitter_user_custom_field].to_i)) %>
+        <em class="info"><%= l(:text_twitter_user_custom_field) %></em>
       </p>
     <% end %>
     <% project_custom_fields = ProjectCustomField.find(:all, :order => :position) %>
@@ -50,6 +54,7 @@
       <p>
         <%= label_tag('settings[twitter_project_custom_field]', l(:label_twitter_project_custom_field)) %>
         <%= select_tag('settings[twitter_project_custom_field]', content_tag(:option) + options_from_collection_for_select(project_custom_fields, :id, :name, @settings[:twitter_project_custom_field].to_i)) %>
+        <em class="info"><%= l(:text_twitter_project_custom_field) %></em>
       </p>
     <% end %>
   </div>

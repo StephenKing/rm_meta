@@ -6,6 +6,18 @@
 
 <% settings = Setting.plugin_meta %>
 
+<% unless settings[:facebook_admins].blank? %>
+  <% content_for(:header_tags) do %>
+    <meta property="fb:admins" content="<%= h settings[:facebook_admins] %>" />
+  <% end %>
+<% end %>
+
+<% unless settings[:facebook_app].blank? %>
+  <% content_for(:header_tags) do %>
+    <meta property="fb:admins" content="<%= h settings[:facebook_app] %>" />
+  <% end %>
+<% end %>
+
 <% if settings[:open_graph] %>
   <% content_for(:header_tags) do %>
     <meta property="og:type" content="website" />
@@ -16,7 +28,7 @@
     <% meta_images do |image| %>
       <meta property="og:image" content="<%= h image %>" />
     <% end %>
-    <meta property="og:url" content="<%= h Setting.protocol %>://<%= h Setting.host_name %>" />
+    <meta property="og:url" content="<%= h url_for(:controller => 'welcome', :only_path => false) %>" />
     <% unless settings[:open_graph_site].blank? %>
       <meta property="og:site_name" content="<%= h settings[:open_graph_site] %>" />
     <% end %>
@@ -36,7 +48,7 @@
         <% throw :done %>
       <% end %>
     <% end %>
-    <meta name="twitter:url" content="<%= h Setting.protocol %>://<%= h Setting.host_name %>" />
+    <meta name="twitter:url" content="<%= h url_for(:controller => 'welcome', :only_path => false) %>" />
     <% unless settings[:twitter_site].blank? %>
       <meta name="twitter:site" content="<%= h twitter_username(settings[:twitter_site]) %>" />
     <% end %>

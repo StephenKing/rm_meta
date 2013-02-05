@@ -56,7 +56,9 @@ module MetaHelper
         end
         text = format_description(text)
         return text if text.length <= length
-        if text.match(%r{\A(.{,#{length-4}}\s)}m)
+        if text.match(%r{\A(.{#{(length/2).floor},#{length}}\.)})
+            return $1
+        elsif text.match(%r{\A(.{,#{length-4}}\s)})
             return $1 + '...'
         end
         text[0, length]
