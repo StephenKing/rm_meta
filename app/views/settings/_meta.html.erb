@@ -3,7 +3,7 @@
   <p>
     <%= label_tag('settings[facebook_admins]', l(:label_facebook_admins)) %>
     <%= text_field_tag('settings[facebook_admins]', @settings[:facebook_admins], :size => 50) %>
-    <em class="info"><%= l(:text_facebook_admins) %></em><!-- FIXME: style for Redmine 1.0.x? -->
+    <em class="info"><%= l(:text_facebook_admins) %></em>
   </p>
   <p>
     <%= label_tag('settings[facebook_app]', l(:label_facebook_app)) %>
@@ -67,3 +67,9 @@
     <% end %>
   </div>
 </fieldset>
+
+<% if (Redmine::VERSION::MAJOR < 2 && Redmine::VERSION::MINOR < 4) || defined? ChiliProject %>
+  <% content_for(:header_tags) do %>
+    <%= stylesheet_link_tag('settings', :plugin => 'meta') %>
+  <% end %>
+<% end %>
