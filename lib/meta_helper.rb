@@ -115,8 +115,8 @@ module MetaHelper
     def project_twitter(project)
         settings = Setting.plugin_meta
         if settings[:twitter_project_custom_field]
-            custom_field_value = project.custom_field_value(settings[:twitter_project_custom_field])
-            return twitter_username(custom_field_value) unless custom_field_value.blank?
+            custom_value = project.custom_value_for(settings[:twitter_project_custom_field])
+            return twitter_username(custom_value.value) if custom_value && custom_value.value.present?
         end
         return twitter_username(settings[:twitter_site]) unless settings[:twitter_site].blank?
         nil

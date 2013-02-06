@@ -54,9 +54,9 @@
       <meta name="twitter:site" content="<%= h project_twitter %>" />
     <% end %>
     <% if settings[:twitter_user_custom_field] %>
-      <% custom_field_value = news.author.custom_field_value(settings[:twitter_user_custom_field]) %>
-      <% unless custom_field_value.blank? %>
-        <meta name="twitter:creator" content="<%= h twitter_username(custom_field_value) %>" />
+      <% custom_value = news.author.custom_value_for(settings[:twitter_user_custom_field]) %>
+      <% if custom_value && custom_value.value.present? %>
+        <meta name="twitter:creator" content="<%= h twitter_username(custom_value.value) %>" />
       <% end %>
     <% end %>
   <% end %>

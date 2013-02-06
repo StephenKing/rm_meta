@@ -14,10 +14,10 @@ Rails.configuration.to_prepare do
 end
 
 Redmine::Plugin.register :meta do
-    name 'Meta tags'
+    name 'Meta'
     author 'Andriy Lesyuk'
     author_url 'http://www.andriylesyuk.com'
-    description 'Adds an ability to specify meta description and keywords.'
+    description 'Adds Open Graph, Twitter Cards, meta description and keywords tags.'
     url 'http://projects.andriylesyuk.com/projects/redmine-meta'
     version '0.2.0'
 
