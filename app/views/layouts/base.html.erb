@@ -7,7 +7,7 @@
 <meta name="keywords" content="<%= h meta_keywords %>" />
 <%= csrf_meta_tag if defined? csrf_meta_tag %>
 <%= favicon %>
-<% if Redmine::VERSION::MAJOR >= 2 %><!-- FIXME 2.0.x -->
+<% if Redmine::VERSION::MAJOR >= 2 && Redmine::VERSION::MINOR >= 1 %>
 <%= stylesheet_link_tag 'jquery/jquery-ui-1.8.21', 'application', :media => 'all' %>
 <% else %>
 <%= stylesheet_link_tag 'application', :media => 'all' %>
