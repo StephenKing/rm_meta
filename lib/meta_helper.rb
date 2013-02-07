@@ -82,7 +82,7 @@ module MetaHelper
 
     def extract_images(html)
         images = []
-        html.gsub!(%r{<img [^>]*src="([^"]+)"}i) do |m|
+        html.gsub!(%r{<img [^>]*src="(https?://[^"]+)"}i) do |m|
             images << $1
         end
         images
