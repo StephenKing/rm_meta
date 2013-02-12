@@ -16,6 +16,8 @@
   <% content_for(:header_tags) do %>
     <meta property="og:type" content="profile" />
     <meta property="og:title" content="<%= h user.name(:firstname_lastname) %>" />
+    <meta property="og:profile:first_name" content="<%= h user.firstname %>" />
+    <meta property="og:profile:last_name" content="<%= h user.lastname %>" />
     <% if Setting.gravatar_enabled? %>
       <meta property="og:image" content="<%= h gravatar_url(user.mail, :size => 200, :ssl => (defined?(request) && request.ssl?), :default => Setting.gravatar_default) %>" />
     <% end %>

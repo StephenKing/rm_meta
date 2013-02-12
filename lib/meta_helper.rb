@@ -81,11 +81,7 @@ module MetaHelper
     end
 
     def extract_images(html)
-        images = []
-        html.gsub!(%r{<img [^>]*src="(https?://[^"]+)"}i) do |m|
-            images << $1
-        end
-        images
+        html.scan(%r{<img [^>]*src="(https?://[^"]+)"}i).flatten
     end
 
     def extract_wiki_title(page)

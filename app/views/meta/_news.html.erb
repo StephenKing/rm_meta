@@ -25,9 +25,11 @@
     <% if meta_description? %>
       <meta property="og:description" content="<%= h meta_description %>" />
     <% end %>
+    <meta property="og:article:author" content="<%= h news.author.name(:firstname_lastname) %>" />
     <% meta_images do |image| %>
       <meta property="og:image" content="<%= h image %>" />
     <% end %>
+    <meta property="og:article:published_time" content="<%= news.created_on.strftime('%Y-%m-%dT%H:%M') %>" />
     <meta property="og:url" content="<%= h url_for(:controller => 'news', :action => 'show', :id => news, :only_path => false) %>" />
     <% unless settings[:open_graph_site].blank? %>
       <meta property="og:site_name" content="<%= h settings[:open_graph_site] %>" />
