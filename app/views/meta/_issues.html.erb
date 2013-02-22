@@ -25,7 +25,7 @@
     <% if meta_description? %>
       <meta property="og:description" content="<%= h meta_description %>" />
     <% end %>
-    <meta property="article:author" content="<%= h issue.author.name(:firstname_lastname) %>" />
+    <meta property="article:author" content="<%= h url_for(:controller => 'users', :action => 'show', :id => issue.author, :only_path => false) %>" />
     <% meta_images do |image| %>
       <meta property="og:image" content="<%= h image %>" />
     <% end %>
