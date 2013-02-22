@@ -14,7 +14,7 @@
 
 <% unless settings[:facebook_app].blank? %>
   <% content_for(:header_tags) do %>
-    <meta property="fb:admins" content="<%= h settings[:facebook_app] %>" />
+    <meta property="fb:app_id" content="<%= h settings[:facebook_app] %>" />
   <% end %>
 <% end %>
 
