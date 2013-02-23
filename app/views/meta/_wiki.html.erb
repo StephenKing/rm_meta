@@ -21,7 +21,7 @@
 <% end %>
 
 <% if Redmine::VERSION::MAJOR == 1 && Redmine::VERSION::MINOR == 0 %>
-  <% wiki_url = url_for(:controller => 'wiki', :action => 'show', :page => page.title, :only_path => false) %>
+  <% wiki_url = url_for(:controller => 'wiki', :action => 'index', :page => page.title, :id => page.project, :only_path => false) %>
 <% else %>
   <% wiki_url = url_for(:controller => 'wiki', :action => 'show', :id => page.title, :project_id => page.project, :only_path => false) %>
 <% end %>
