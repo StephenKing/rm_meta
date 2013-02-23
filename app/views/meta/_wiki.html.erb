@@ -20,6 +20,12 @@
   <% end %>
 <% end %>
 
+<% if Redmine::VERSION::MAJOR == 1 && Redmine::VERSION::MINOR == 0 %>
+  <% wiki_url = url_for(:controller => 'wiki', :action => 'show', :page => page.title, :only_path => false) %>
+<% else %>
+  <% wiki_url = url_for(:controller => 'wiki', :action => 'show', :id => page.title, :project_id => page.project, :only_path => false) %>
+<% end %>
+
 <% if settings[:open_graph] %>
   <% content_for(:header_tags) do %>
     <meta property="og:type" content="article" />
@@ -37,7 +43,7 @@
     <% if page.respond_to?(:updated_on) %>
         <meta property="article:modified_time" content="<%= page.updated_on.strftime('%Y-%m-%dT%H:%M') %>" />
     <% end %>
-    <meta property="og:url" content="<%= h url_for(:controller => 'wiki', :action => 'show', :id => page.title, :project_id => page.project, :only_path => false) %>" />
+    <meta property="og:url" content="<%= h wiki_url %>" />
     <% unless settings[:open_graph_site].blank? %>
       <meta property="og:site_name" content="<%= h settings[:open_graph_site] %>" />
     <% end %>
@@ -57,7 +63,7 @@
         <% throw :done %>
       <% end %>
     <% end %>
-    <meta name="twitter:url" content="<%= h url_for(:controller => 'wiki', :action => 'show', :id => page.title, :project_id => page.project, :only_path => false) %>" />
+    <meta name="twitter:url" content="<%= h wiki_url %>" />
     <% project_twitter = project_twitter(page.project) %>
     <% unless project_twitter.blank? %>
       <meta name="twitter:site" content="<%= h project_twitter %>" />
