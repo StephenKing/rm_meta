@@ -19,7 +19,7 @@ Redmine::Plugin.register :meta do
     author_url 'http://www.andriylesyuk.com'
     description 'Adds Open Graph, Twitter Cards, meta description and keywords tags.'
     url 'http://projects.andriylesyuk.com/projects/redmine-meta'
-    version '0.2.0'
+    version '0.2.1'
 
     settings :default => {
         :facebook_admins              => nil,
