@@ -8,7 +8,7 @@
 <%= csrf_meta_tag if defined? csrf_meta_tag %>
 <%= favicon %>
 <% if Redmine::VERSION::MAJOR >= 2 && Redmine::VERSION::MINOR >= 1 %>
-<% Rails.logger.info Dir.glob(File.join(Rails.root, "public/stylesheets/jquery/jquery-ui-*.css")).each do |file| %>
+<% Dir.glob(File.join(Rails.root, "public/stylesheets/jquery/jquery-ui-*.css")).each do |file| %>
 <%= stylesheet_link_tag 'jquery/' + File.basename(file, '.css'), 'application', :media => 'all' %>
 <% end %>
 <% else %>
