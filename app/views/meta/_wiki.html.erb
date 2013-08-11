@@ -1,7 +1,7 @@
 <% if controller.is_a?(WikiController) %>
 
 <% if page.text.present? && (!meta_description? || !meta_keywords?) %>
-  <% text = strip_textile(page.text, :project => page.project, :attachments => page.attachments) %>
+  <% text = strip_textile(page.text, :object => page.content, :project => page.project, :attachments => page.attachments) %>
   <% meta_description(truncate_description(text)) unless meta_description? %>
   <% meta_keywords(extract_keywords(text)) unless meta_keywords? %>
 <% end %>

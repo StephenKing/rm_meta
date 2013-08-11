@@ -3,7 +3,7 @@
 <% end %>
 
 <% if version.wiki_page && version.wiki_page.text.present? && !meta_keywords? %>
-  <% text = strip_textile(version.wiki_page.text, :project => version.project, :attachments => version.wiki_page.attachments) %>
+  <% text = strip_textile(version.wiki_page.text, :object => version.wiki_page.content, :project => version.project, :attachments => version.wiki_page.attachments) %>
   <% meta_keywords(extract_keywords(text)) unless meta_keywords? %>
 <% end %>
 

@@ -1,5 +1,5 @@
 <% if news.summary.present? && news.description.present? && (!meta_description? || !meta_keywords?) %>
-  <% description = strip_textile(news.description, :project => news.project) %>
+  <% description = strip_textile(news.description, :object => news, :project => news.project) %>
   <% meta_description(news.summary || truncate_description(description)) unless meta_description? %>
   <% meta_keywords(extract_keywords(description)) unless meta_keywords? %>
 <% end %>
