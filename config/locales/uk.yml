@@ -18,3 +18,7 @@ uk:
   text_twitter_user_custom_field: Оберіть поле, яке зберігає імена користувачів у Twitter
   label_twitter_project_custom_field: Поле проектів
   text_twitter_project_custom_field: Оберіть поле, яке зберігає імена користувачів у Twitter для проектів
+
+  hook_page_news: Сторінка новин
+
+  description_view_news_show_left: над коментарями

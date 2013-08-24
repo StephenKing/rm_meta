@@ -1,0 +1,6 @@
+view_news_show_left:
+  url: /news/:id
+  outline: news
+  page: :news
+  location: :content
+  basic: true

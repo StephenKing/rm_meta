@@ -18,3 +18,7 @@ ru:
   text_twitter_user_custom_field: Выберите настраиваемое поле, которое хранит имена пользователей в Twitter
   label_twitter_project_custom_field: Настраиваемое поле проектов
   text_twitter_project_custom_field: Выберите настраиваемое поле, которое хранит имена пользователей в Twitter для проектов
+
+  hook_page_news: Страница новостей
+
+  description_view_news_show_left: над комментариями

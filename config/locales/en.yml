@@ -18,3 +18,7 @@ en:
   text_twitter_user_custom_field: Choose custom field, which holds Twitter usernames for users
   label_twitter_project_custom_field: Project custom field
   text_twitter_project_custom_field: Choose custom field, which holds Twitter usernames for projects
+
+  hook_page_news: News page
+
+  description_view_news_show_left: above comments
