@@ -11,6 +11,12 @@ Rails.configuration.to_prepare do
     unless ActionView::Base.included_modules.include?(MetaHelper)
         ActionView::Base.send(:include, MetaHelper)
     end
+    unless News.included_modules.include?(MetaNewsPatch)
+        News.send(:include, MetaNewsPatch)
+    end
+    unless Message.included_modules.include?(MetaMessagePatch)
+        Message.send(:include, MetaMessagePatch)
+    end
 end
 
 Redmine::Plugin.register :meta do
