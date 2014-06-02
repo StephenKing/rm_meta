@@ -77,7 +77,7 @@ module MetaHelper
                 hash[keyword] = 1
             end
             hash
-        }.sort{ |a, b| b[1] <=> a[1] }.collect{ |item| item[0] }.first(10)
+        }.sort{ |a, b| b[1] <=> a[1] }.collect{ |item| item[0] }.first(10) # FIXME keywords: this, that
     end
 
     def extract_images(html)

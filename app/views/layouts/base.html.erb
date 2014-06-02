@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="<%= current_language %>">
 <head>
 <meta charset="utf-8" />
 <title><%=h html_title %></title>
@@ -7,7 +7,7 @@
 <meta name="keywords" content="<%= h meta_keywords %>" />
 <%= csrf_meta_tag if defined? csrf_meta_tag %>
 <%= favicon %>
-<% if Redmine::VERSION::MAJOR >= 2 && Redmine::VERSION::MINOR >= 1 %>
+<% if (Redmine::VERSION::MAJOR == 2 && Redmine::VERSION::MINOR >= 1) || Redmine::VERSION::MAJOR > 2 %>
 <% Dir.glob(File.join(Rails.root, "public/stylesheets/jquery/jquery-ui-*.css")).each do |file| %>
 <%= stylesheet_link_tag 'jquery/' + File.basename(file, '.css'), 'application', :media => 'all' %>
 <% end %>
@@ -93,7 +93,7 @@
     <% if defined? ChiliProject %>
     <%= l(:text_powered_by, :link => link_to(Redmine::Info.app_name, Redmine::Info.url)) %>
     <% else %>
-    Powered by <%= link_to Redmine::Info.app_name, Redmine::Info.url %> &copy; 2006-2013 Jean-Philippe Lang
+    Powered by <%= link_to Redmine::Info.app_name, Redmine::Info.url %> &copy; 2006-2014 Jean-Philippe Lang
     <% end %>
   </div></div>
 </div>

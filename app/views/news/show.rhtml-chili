@@ -49,7 +49,7 @@
                                                        :confirm => l(:text_are_you_sure), :method => :delete, :title => l(:button_delete) %>
     </div>
     <h4><%= avatar(comment.author, :size => "24") %><%= authoring comment.created_on, comment.author %></h4>
-    <%= textilizable(comment.comments) %>
+    <%= textilizable(comment, :comments) %>
 <% end if @comments.any? %>
 </div>
 
