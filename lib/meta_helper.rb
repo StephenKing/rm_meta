@@ -68,8 +68,19 @@ module MetaHelper
         text.gsub(%r{([^!,.:;?\s]) *\r?\n\s*}m, '\1. ').gsub(%r{\s{2,}}m, ' ').strip
     end
 
+    def stop_words
+        @@stop_words ||= begin
+            words_list = File.join(File.dirname(__FILE__), '../config/stopwords.list')
+            if File.exist?(words_list)
+                File.readlines(words_list).map(&:chomp)
+            else
+                []
+            end
+        end
+    end
+
     def extract_keywords(text)
-        strip_entities(text).scan(%r{[^\000-\100\133-\140\173-]{4,30}}i).inject({}) { |hash, word|
+        strip_entities(text).scan(%r{[^\000-\100\133-\140\173-]{3,30}}i).inject({}) do |hash, word|
             keyword = word.downcase
             if hash.has_key?(keyword)
                 hash[keyword] += 1
@@ -77,7 +88,11 @@ module MetaHelper
                 hash[keyword] = 1
             end
             hash
-        }.sort{ |a, b| b[1] <=> a[1] }.collect{ |item| item[0] }.first(10) # FIXME keywords: this, that
+        end.sort{ |a, b| b[1] <=> a[1] }.inject([]) do |keywords, item|
+            keywords << item[0] unless stop_words.include?(item[0])
+            return keywords if keywords.size == 10
+            keywords
+        end
     end
 
     def extract_images(html)
