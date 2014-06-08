@@ -12,8 +12,8 @@ class MetaHook  < Redmine::Hook::ViewListener
         elsif context[:controller].controller_name == 'messages' && context[:controller].action_name == 'show'
             if context[:request].params['id'] && context[:request].params['id'] =~ %r{^[0-9]+$}
                 if message = Message.find_by_id(context[:request].params['id'])
-                    canonical_url = board_message_path(message.board, message, :only_path => false,
-                                                                               :protocol => Setting.protocol, :host => Setting.host_name)
+                    canonical_url = url_for(:controller => 'messages', :action => 'show', :board_id => message.board, :id => message,
+                                            :only_path => false, :protocol => Setting.protocol, :host => Setting.host_name)
                     '<link rel="canonical" href="'.html_safe + canonical_url + '" />'.html_safe
                 end
             end
@@ -26,6 +26,7 @@ class MetaHook  < Redmine::Hook::ViewListener
 
     render_on :view_news_show_left,                 :partial => 'meta/news'
     render_on :view_wiki_show_left,                 :partial => 'meta/wiki'
+    render_on :view_messages_show_topic_bottom,     :partial => 'meta/topic'
 
     render_on :view_versions_show_bottom,           :partial => 'meta/versions'
     render_on :view_account_left_bottom,            :partial => 'meta/users'

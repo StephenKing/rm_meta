@@ -1,0 +1,10 @@
+--- /usr/share/redmine/app/views/messages/show.html.erb	2014-03-29 18:56:37.000000000 +0200
++++ app/views/messages/show.html.erb	2014-06-08 10:51:09.507949764 +0300
+@@ -32,6 +32,7 @@
+ </div>
+ <%= link_to_attachments @topic, :author => false %>
+ </div>
++<%= call_hook(:view_messages_show_topic_bottom, :topic => @topic) %>
+ <br />
+ 
+ <% unless @replies.empty? %>

@@ -103,7 +103,7 @@ module MetaHelper
         if page.text.match(%r{\A\s*h[1-6]\. +(.+?)$})
             $1
         else
-            page.title
+            page.pretty_title # FIXME
         end
     end
 
