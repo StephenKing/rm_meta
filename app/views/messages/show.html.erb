@@ -30,9 +30,9 @@
 <div class="wiki">
 <%= textilizable(@topic, :content) %>
 </div>
+<%= call_hook(:view_messages_show_topic_bottom, :topic => @topic) %>
 <%= link_to_attachments @topic, :author => false %>
 </div>
-<%= call_hook(:view_messages_show_topic_bottom, :topic => @topic) %>
 <br />
 
 <% unless @replies.empty? %>
