@@ -2,7 +2,7 @@ class MetaHook  < Redmine::Hook::ViewListener
 
     def view_layouts_base_html_head(context = {})
         if context[:controller].controller_name == 'news' && context[:controller].action_name == 'show'
-            if context[:request].params['id'] && context[:request].params['id'] =~ %r{^[0-9]+$}
+            if context[:request].params['id'] && context[:request].params['id'] =~ %r{\A[0-9]+\z}
                 if news = News.find_by_id(context[:request].params['id'])
                     canonical_url = news_path(news, :only_path => false,
                                                     :protocol => Setting.protocol, :host => Setting.host_name)
@@ -10,7 +10,7 @@ class MetaHook  < Redmine::Hook::ViewListener
                 end
             end
         elsif context[:controller].controller_name == 'messages' && context[:controller].action_name == 'show'
-            if context[:request].params['id'] && context[:request].params['id'] =~ %r{^[0-9]+$}
+            if context[:request].params['id'] && context[:request].params['id'] =~ %r{\A[0-9]+\z}
                 if message = Message.find_by_id(context[:request].params['id'])
                     canonical_url = url_for(:controller => 'messages', :action => 'show', :board_id => message.board, :id => message,
                                             :only_path => false, :protocol => Setting.protocol, :host => Setting.host_name)

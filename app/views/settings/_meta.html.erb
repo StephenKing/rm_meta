@@ -49,7 +49,7 @@
       <%= text_field_tag('settings[twitter_site]', @settings[:twitter_site], :size => 30) %>
       <em class="info"><%= l(:text_twitter_site) %></em>
     </p>
-    <% user_custom_fields = UserCustomField.find(:all, :order => :position) %>
+    <% user_custom_fields = UserCustomField.order(:position) %>
     <% if user_custom_fields.any? %>
       <p>
         <%= label_tag('settings[twitter_user_custom_field]', l(:label_twitter_user_custom_field)) %>
@@ -57,7 +57,7 @@
         <em class="info"><%= l(:text_twitter_user_custom_field) %></em>
       </p>
     <% end %>
-    <% project_custom_fields = ProjectCustomField.find(:all, :order => :position) %>
+    <% project_custom_fields = ProjectCustomField.order(:position) %>
     <% if project_custom_fields.any? %>
       <p>
         <%= label_tag('settings[twitter_project_custom_field]', l(:label_twitter_project_custom_field)) %>

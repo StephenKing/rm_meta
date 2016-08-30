@@ -100,7 +100,7 @@ module MetaHelper
     end
 
     def extract_wiki_title(page)
-        if page.text.match(%r{\A\s*h[1-6]\. +(.+?)$})
+        if page.text.match(%r{\A\s*h[1-6]\. +(.+?)\z})
             $1
         else
             page.pretty_title
